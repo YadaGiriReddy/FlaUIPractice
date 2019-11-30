@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading;
+using FlaUI.Core.Conditions;
+using FlaUI.Core.Input;
 using FlaUI.UIA3;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -9,20 +11,30 @@ namespace FlaUiTests
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestBasicControls()
         {
-            var app = FlaUI.Core.Application.Launch(@"C:\Data\Visual Studio Workspace\FlaUiPractice\FlaUIPractice\BankSystem\bin\Release\BankSystem.exe");
-            using (var automation = new UIA3Automation())
-            {
-                Thread.Sleep(3000);
-                var mainWindow = app.GetMainWindow(automation);
-                Console.WriteLine(mainWindow.Name);
-                mainWindow.FindFirstDescendant(cf => cf.ByName("Registration")).AsButton().Click();
-                var regWindow = mainWindow.FindFirstChild(cf => cf.ByName("Registration")).AsWindow();
-                regWindow.FindFirstDescendant(cf => cf.ByAutomationId("InFName")).AsTextBox().Enter("Yadagiri");
-                regWindow.FindFirstDescendant(cf => cf.ByAutomationId("InAge")).AsComboBox().Select("25").Click();
+            var application = FlaUI.Core.Application.Launch(@"C:\Data\Visual Studio Workspace\FlaUiPractice\FlaUIPractice\BankSystem\bin\Release\BankSystem.exe");
 
-            }
+            var mainWindow = application.GetMainWindow(new UIA3Automation());
+            ConditionFactory cf = new ConditionFactory(new UIA3PropertyLibrary());
+
+            mainWindow.FindFirstDescendant(cf.ByName("Registration")).AsButton().Click();
+            mainWindow.FindFirstDescendant(cf.ByAutomationId("InFName")).AsTextBox().Enter("Yadagiri");
+            mainWindow.FindFirstDescendant(cf.ByAutomationId("InLName")).AsTextBox().Enter("Reddy");
+            mainWindow.FindFirstDescendant(cf.ByAutomationId("InAge")).AsComboBox().Select(4).Click();
+            mainWindow.FindFirstDescendant(cf.ByAutomationId("InCountry")).AsComboBox().Select("India").Click();
+            mainWindow.FindFirstDescendant(cf.ByAutomationId("InPhone")).AsTextBox().Enter("9876543210");
+            mainWindow.FindFirstDescendant(cf.ByAutomationId("InEmail")).AsTextBox().Enter("jhabcdefhjk@gmail.com");
+            mainWindow.FindFirstDescendant(cf.ByAutomationId("InPass")).AsTextBox().Enter("12345");
+            mainWindow.FindFirstDescendant(cf.ByAutomationId("InCard")).AsTextBox().Enter("456378963215");
+            mainWindow.FindFirstDescendant(cf.ByAutomationId("VipCheck")).AsCheckBox().Click();
+            mainWindow.FindFirstDescendant(cf.ByName("Ok")).AsButton().Click();
+            var congratulationsWindow = mainWindow.FindFirstDescendant(cf.ByName("Congratulations")).AsWindow();
+            Assert.IsNotNull(congratulationsWindow);
+            congratulationsWindow.FindFirstDescendant(cf.ByName("OK")).AsButton().Click();
+            mainWindow.FindFirstDescendant(cf.ByName("Exit")).AsButton().Click();
+            var exitWindow = mainWindow.FindFirstDescendant(cf.ByName("Exit")).AsWindow();
+            exitWindow.FindFirstDescendant(cf.ByName("Yes")).AsButton().Click();
         }
     }
 }
