@@ -14,8 +14,8 @@ namespace FlaUiTests
         public void TestBasicControls()
         {
             var application = FlaUI.Core.Application.Launch(@"C:\Data\Visual Studio Workspace\FlaUiPractice\FlaUIPractice\BankSystem\bin\Release\BankSystem.exe");
-
-            var mainWindow = application.GetMainWindow(new UIA3Automation());
+            var automation = new UIA3Automation();
+            var mainWindow = application.GetMainWindow(automation);
             ConditionFactory cf = new ConditionFactory(new UIA3PropertyLibrary());
 
             mainWindow.FindFirstDescendant(cf.ByName("Registration")).AsButton().Click();
@@ -35,6 +35,42 @@ namespace FlaUiTests
             mainWindow.FindFirstDescendant(cf.ByName("Exit")).AsButton().Click();
             var exitWindow = mainWindow.FindFirstDescendant(cf.ByName("Exit")).AsWindow();
             exitWindow.FindFirstDescendant(cf.ByName("Yes")).AsButton().Click();
+        }
+
+        [TestMethod]
+        public void TestFindMEthods()
+        {
+            var application = FlaUI.Core.Application.Launch(@"C:\Data\Visual Studio Workspace\FlaUiPractice\FlaUIPractice\BankSystem\bin\Release\BankSystem.exe");
+            var automation = new UIA3Automation();
+            var mainWindow = application.GetMainWindow(automation);
+            ConditionFactory cf = new ConditionFactory(new UIA3PropertyLibrary());
+
+            var elements = mainWindow.FindAll(FlaUI.Core.Definitions.TreeScope.Children, 
+                new PropertyCondition(automation.PropertyLibrary.Element.ControlType, FlaUI.Core.Definitions.ControlType.Edit));
+            foreach (var item in elements)
+            {
+                item.DrawHighlight();
+                Thread.Sleep(500);
+            }
+            //mainWindow.FindFirstDescendant(cf.ByControlType(FlaUI.Core.Definitions.ControlType.Edit)).DrawHighlight();
+            //Thread.Sleep(500);
+        }
+
+        [TestMethod]
+        public void TestConditionFactoryWithMultipleConditions()
+        {
+            var application = FlaUI.Core.Application.Launch(@"C:\Data\Visual Studio Workspace\FlaUiPractice\FlaUIPractice\BankSystem\bin\Release\BankSystem.exe");
+            var automation = new UIA3Automation();
+            var mainWindow = application.GetMainWindow(automation);
+            ConditionFactory cf = new ConditionFactory(new UIA3PropertyLibrary());
+
+            mainWindow.FindFirstDescendant(cf.ByName("Registration")).AsButton().Click();
+            var elements = mainWindow.FindAllDescendants(cf.ByName("First Name :").And(cf.ByControlType(FlaUI.Core.Definitions.ControlType.Edit)));
+            foreach (var item in elements)
+            {
+                item.DrawHighlight();
+                Thread.Sleep(500);
+            }
         }
     }
 }
