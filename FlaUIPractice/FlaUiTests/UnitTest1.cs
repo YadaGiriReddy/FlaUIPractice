@@ -72,5 +72,22 @@ namespace FlaUiTests
                 Thread.Sleep(500);
             }
         }
+
+        [TestMethod]
+        public void TestMenuControls()
+        {
+            var application = FlaUI.Core.Application.Launch(@"C:\Data\Visual Studio Workspace\FlaUiPractice\FlaUIPractice\FlaUiTests\Resources\WinFormsApplication.exe");
+            var automation = new UIA3Automation();
+            var mainWindow = application.GetMainWindow(automation);
+            ConditionFactory cf = new ConditionFactory(new UIA3PropertyLibrary());
+            //var menu = mainWindow.FindFirstDescendant(cf.Menu()).AsMenu();
+            //menu.DrawHighlight();
+
+            //menu.Items["File"].Invoke();
+            mainWindow.FindFirstDescendant(cf.ByName("ContextMenu")).AsButton().RightClick();
+            var contextMenu = mainWindow.ContextMenu;
+            contextMenu.DrawHighlight();
+            contextMenu.Items[0].DrawHighlight();
+        }
     }
 }
