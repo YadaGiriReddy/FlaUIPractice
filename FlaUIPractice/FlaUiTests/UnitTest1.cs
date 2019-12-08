@@ -2,6 +2,7 @@
 using System.Threading;
 using FlaUI.Core.Conditions;
 using FlaUI.Core.Input;
+using FlaUI.Core.Shapes;
 using FlaUI.UIA3;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -88,6 +89,16 @@ namespace FlaUiTests
             var contextMenu = mainWindow.ContextMenu;
             contextMenu.DrawHighlight();
             contextMenu.Items[0].DrawHighlight();
+        }
+
+        [TestMethod]
+        public void TestMouseActions()
+        {
+            Point point = new Point(2298, 82);
+            Mouse.MoveTo(1500, 100);
+            Mouse.MoveBy(100, 100);
+            Mouse.LeftClick();
+            Mouse.Click(MouseButton.Left, point);
         }
     }
 }
