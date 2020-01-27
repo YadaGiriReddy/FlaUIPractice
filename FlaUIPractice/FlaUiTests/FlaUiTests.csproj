@@ -82,6 +82,7 @@
   <ItemGroup>
     <Content Include="Resources\WhereIsMyCursor.exe" />
     <Content Include="Resources\WinFormsApplication.exe" />
+    <Content Include="Resources\WpfApplication.exe" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

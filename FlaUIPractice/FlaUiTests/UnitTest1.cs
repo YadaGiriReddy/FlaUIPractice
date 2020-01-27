@@ -149,5 +149,11 @@ namespace FlaUiTests
             var rectangleImg = Capture.Rectangle(new Rectangle(500, 500, 100, 150));
             rectangleImg.ToFile(@"C:\Data\Visual Studio Workspace\Screenshots\Rectangle Img.png");
         }
+
+        [TestMethod]
+        public void TestPatterns()
+        {
+
+        }
     }
 }
