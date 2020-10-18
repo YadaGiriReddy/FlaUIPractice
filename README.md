@@ -26,7 +26,6 @@ You can find the GitHub link in the video description or you can directly browse
 18. [Accessing Standard UIA Properties using FlaUI](https://youtu.be/EOKPiLykNVE)
 
 ## Further Resources
-* <a href="https://github.com/FlaUI/FlaUI" target="_blank">FlaUI Official GitHub Page</a>
 * [FlaUI Official GitHub Page](https://github.com/FlaUI/FlaUI)
 * [FlaUI Wiki Page](https://github.com/FlaUI/FlaUI/wiki)
 * [FlaUI Chat (ask your specific questions here)](https://gitter.im/FlaUI/Lobby)
